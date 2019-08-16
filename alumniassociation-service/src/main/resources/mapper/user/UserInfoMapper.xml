@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alumniassociation.user.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.alumniassociation.user.entity.UserInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="college" property="college" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="curr_location" property="currLocation" jdbcType="VARCHAR" />
+    <result column="entrance_time" property="entranceTime" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="graduation_time" property="graduationTime" jdbcType="VARCHAR" />
+    <result column="hobby" property="hobby" jdbcType="VARCHAR" />
+    <result column="industry_skill" property="industrySkill" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="session_key" property="sessionKey" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="BIGINT" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="DOUBLE" />
+    <result column="sex" property="sex" jdbcType="BIT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="user_status" property="userStatus" jdbcType="BIT" />
+    <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
+    <result column="last_login_ip" property="lastLoginIp" jdbcType="VARCHAR" />
+    <result column="wechat_image" property="wechatImage" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.alumniassociation.user.entity.UserInfo" extends="BaseResultMap" >
+    <result column="personal_profile" property="personalProfile" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, college, create_time, curr_location, entrance_time, graduation_time, hobby, industry_skill, 
+    major, open_id, phone_num, real_name, score, sex, update_time, user_status, wechat_image
+  </sql>
+  <sql id="Blob_Column_List" >
+    personal_profile
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="queryByOpenId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_info
+    where open_id = #{openId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="findAll" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_info
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.alumniassociation.user.entity.UserInfo" >
+    insert into user_info (
+        id, 
+        college, 
+        create_time, 
+        curr_location, 
+        entrance_time, 
+        graduation_time, 
+        hobby, 
+        industry_skill, 
+        major, 
+        open_id, 
+        phone_num, 
+        real_name,
+        nick_name, 
+        score, 
+        sex, 
+        update_time, 
+        user_status, 
+        wechat_image, 
+        personal_profile,
+        last_login_ip,
+        last_login_time
+      ) values 
+      (#{id,jdbcType=INTEGER}, 
+       #{college,jdbcType=VARCHAR}, 
+       now(), 
+       #{currLocation,jdbcType=VARCHAR}, 
+       #{entranceTime,jdbcType=VARCHAR}, 
+       #{graduationTime,jdbcType=VARCHAR}, 
+       #{hobby,jdbcType=VARCHAR}, 
+       #{industrySkill,jdbcType=VARCHAR}, 
+       #{major,jdbcType=VARCHAR}, 
+       #{openId,jdbcType=VARCHAR}, 
+       #{phoneNum,jdbcType=INTEGER}, 
+       #{realName,jdbcType=VARCHAR}, 
+       #{nickName,jdbcType=VARCHAR}, 
+       #{score,jdbcType=DOUBLE}, 
+       #{sex,jdbcType=BIT}, 
+       now(), 
+       #{userStatus,jdbcType=BIT}, 
+       #{wechatImage,jdbcType=VARCHAR}, 
+       #{personalProfile,jdbcType=LONGVARCHAR},
+       #{lastLoginIp,jdbcType=LONGVARCHAR},
+       now()
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.alumniassociation.user.entity.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="college != null" >
+        college,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="currLocation != null" >
+        curr_location,
+      </if>
+      <if test="entranceTime != null" >
+        entrance_time,
+      </if>
+      <if test="graduationTime != null" >
+        graduation_time,
+      </if>
+      <if test="hobby != null" >
+        hobby,
+      </if>
+      <if test="industrySkill != null" >
+        industry_skill,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="openId != null" >
+        open_id,
+      </if>
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="userStatus != null" >
+        user_status,
+      </if>
+      <if test="wechatImage != null" >
+        wechat_image,
+      </if>
+      <if test="personalProfile != null" >
+        personal_profile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="college != null" >
+        #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currLocation != null" >
+        #{currLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="entranceTime != null" >
+        #{entranceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="graduationTime != null" >
+        #{graduationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="industrySkill != null" >
+        #{industrySkill,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=BIT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=BIT},
+      </if>
+      <if test="wechatImage != null" >
+        #{wechatImage,jdbcType=VARCHAR},
+      </if>
+      <if test="personalProfile != null" >
+        #{personalProfile,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.alumniassociation.user.entity.UserInfo" >
+    update user_info
+    <set >
+      <if test="college != null" >
+        college = #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="currLocation != null" >
+        curr_location = #{currLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="entranceTime != null" >
+        entrance_time = #{entranceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="graduationTime != null" >
+        graduation_time = #{graduationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null" >
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="industrySkill != null" >
+        industry_skill = #{industrySkill,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null" >
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        phone_num = #{phoneNum,jdbcType=INTEGER},
+      </if>
+      <if test="realName != null" >
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=BIT},
+      </if>
+      <if test="lastLoginIp != null" >
+        last_login_ip = #{lastLoginIp,jdbcType=BIT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userStatus != null" >
+        user_status = #{userStatus,jdbcType=BIT},
+      </if>
+      <if test="wechatImage != null" >
+        wechat_image = #{wechatImage,jdbcType=VARCHAR},
+      </if>
+      <if test="personalProfile != null" >
+        personal_profile = #{personalProfile,jdbcType=LONGVARCHAR},
+      </if>
+      last_login_time = now()
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.alumniassociation.user.entity.UserInfo" >
+    update user_info
+    set college = #{college,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      curr_location = #{currLocation,jdbcType=VARCHAR},
+      entrance_time = #{entranceTime,jdbcType=VARCHAR},
+      graduation_time = #{graduationTime,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      industry_skill = #{industrySkill,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=INTEGER},
+      real_name = #{realName,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE},
+      sex = #{sex,jdbcType=BIT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_status = #{userStatus,jdbcType=BIT},
+      wechat_image = #{wechatImage,jdbcType=VARCHAR},
+      personal_profile = #{personalProfile,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alumniassociation.user.entity.UserInfo" >
+    update user_info
+    set college = #{college,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      curr_location = #{currLocation,jdbcType=VARCHAR},
+      entrance_time = #{entranceTime,jdbcType=VARCHAR},
+      graduation_time = #{graduationTime,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      industry_skill = #{industrySkill,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      phone_num = #{phoneNum,jdbcType=INTEGER},
+      real_name = #{realName,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DOUBLE},
+      sex = #{sex,jdbcType=BIT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      user_status = #{userStatus,jdbcType=BIT},
+      wechat_image = #{wechatImage,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findByParam"  parameterType="com.alumniassociation.user.entity.UserInfo" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_info
+    where real_name = #{realName,jdbcType=VARCHAR} and major = #{major,jdbcType=VARCHAR} and graduation_time = #{graduationTime,jdbcType=VARCHAR}
+  </select>
+</mapper>

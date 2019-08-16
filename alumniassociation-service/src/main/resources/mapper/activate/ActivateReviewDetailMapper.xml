@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alumniassociation.activate.dao.ActivateReviewDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.alumniassociation.activate.entity.ActivateReviewDetail" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="activate_id" property="activateId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="wechat_image" property="headImg" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.alumniassociation.activate.entity.ActivateReviewDetail" extends="BaseResultMap" >
+    <result column="comment" property="comment" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, activate_id, user_id, user_name, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    comment
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+       a.id as id, 
+       a.activate_id, 
+       a.user_id, 
+       a.comment,
+       a.create_time,
+       b.nick_name nick_name, 
+       b.real_name real_name,
+       b.wechat_image wechat_image
+    from activate_review_detail a, user_info b 
+    where a.user_id = b.id and a.id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="findAll" resultMap="ResultMapWithBLOBs">
+    select 
+       a.id as id, 
+       a.activate_id, 
+       a.user_id, 
+       a.comment,
+       a.create_time,
+       b.nick_name nick_name, 
+       b.real_name real_name,
+       b.wechat_image wechat_image
+    from activate_review_detail a, user_info b 
+    where a.user_id = b.id
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activate_review_detail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.alumniassociation.activate.entity.ActivateReviewDetail" >
+    insert into activate_review_detail (id, activate_id, user_id, 
+      create_time, comment
+      )
+    values (#{id,jdbcType=INTEGER}, #{activateId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+       #{createTime,jdbcType=TIMESTAMP}, #{comment,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.alumniassociation.activate.entity.ActivateReviewDetail" >
+    insert into activate_review_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="activateId != null" >
+        activate_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="activateId != null" >
+        #{activateId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alumniassociation.activate.entity.ActivateReviewDetail" >
+    update activate_review_detail
+    <set >
+      <if test="activateId != null" >
+        activate_id = #{activateId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.alumniassociation.activate.entity.ActivateReviewDetail" >
+    update activate_review_detail
+    set activate_id = #{activateId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      comment = #{comment,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alumniassociation.activate.entity.ActivateReviewDetail" >
+    update activate_review_detail
+    set activate_id = #{activateId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

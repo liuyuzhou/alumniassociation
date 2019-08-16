@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yizhuang.web.common.dao.SysRoleDao">
+
+	<select id="queryObject" resultType="com.yizhuang.web.common.entity.SysRole">
+		select * from tb_sys_role where role_id = #{value}
+	</select>
+	
+	<select id="queryList" resultType="com.yizhuang.web.common.entity.SysRole">
+		select * from tb_sys_role 
+		<where>
+			<if test="roleName != null and roleName.trim() != ''">
+				and `role_name` like concat('%',#{roleName},'%') 
+			</if>
+			<if test="createUserId != null">
+				and create_user_id = #{createUserId} 
+			</if>
+			<if test="remark != null">
+				and remark = #{remark}
+			</if>
+		</where>
+		<choose>
+			<when test="sidx != null and sidx.trim() != ''">
+				order by ${sidx} ${order}
+			</when>
+			<otherwise>
+				order by role_id asc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	<select id="findAll"   resultType="com.yizhuang.web.common.entity.SysRole">
+		select * from tb_sys_role
+		<where>
+			<if test="createUserId != 'null'">
+				and create_user_id = #{createUserId}
+			</if>
+		</where>
+		order by role_id asc
+	</select>
+
+	<select id="queryTotal" resultType="int">
+		select count(*) from tb_sys_role 
+		<where>
+
+			<if test="roleName != null and roleName.trim() != ''">
+				and `role_name` like concat('%',#{roleName},'%') 
+			</if>
+			<if test="createUserId != null">
+				and create_user_id = #{createUserId} 
+			</if>
+			<if test="remark != null">
+				and remark = #{remark}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="save" parameterType="com.yizhuang.web.common.entity.SysRole" useGeneratedKeys="true" keyProperty="roleId">
+		insert into tb_sys_role
+		(
+			`role_id`, 
+			`role_name`, 
+			`remark`,
+			`create_user_id`,
+			`create_time`
+
+		)
+		values
+		(
+			#{roleId}, 
+			#{roleName}, 
+			#{remark}, 
+			#{createUserId},
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.yizhuang.web.common.entity.SysRole">
+		update tb_sys_role 
+		<set> 
+			<if test="roleName != null">`role_name` = #{roleName},</if>
+			<if test="remark != null">`remark` = #{remark}</if>
+		</set>
+		where role_id = #{roleId}
+	</update>
+	
+	<delete id="deleteBatch">
+		delete from tb_sys_role where role_id in 
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+	</delete>
+
+	<delete id="deleteRoleMenu">
+		delete from tb_sys_role_menu where role_id in
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+
+	</delete>
+
+
+	<delete id="deleteUserRole">
+		delete from tb_sys_user_role where role_id in
+		<foreach item="roleId" collection="array" open="(" separator="," close=")">
+			#{roleId}
+		</foreach>
+	</delete>
+
+	<!-- 查询用户创建的角色ID列表 -->
+	<select id="queryRoleIdList" resultType="long">
+		select role_id from tb_sys_role where create_user_id = #{createUserId} 
+	</select> 
+	
+	<!-- 查询用户所属部门 -->
+	<select id="queryOrgId" resultType="String">
+		select org_id from tb_sys_role where role_id = #{roleId} 
+	</select>
+</mapper>

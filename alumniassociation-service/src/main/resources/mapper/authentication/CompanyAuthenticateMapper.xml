@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alumniassociation.authentication.dao.CompanyAuthenticateMapper" >
+  <resultMap id="BaseResultMap" type="com.alumniassociation.authentication.entity.CompanyAuthenticate" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="industry" property="industry" jdbcType="VARCHAR" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="auth_status" property="authStatus" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.alumniassociation.authentication.entity.CompanyAuthenticate" extends="BaseResultMap" >
+    <result column="brief_introduction" property="briefIntroduction" jdbcType="LONGVARCHAR" />
+    <result column="other_info" property="otherInfo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, company_name, industry, logo, auth_status, create_time, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    brief_introduction, other_info
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from company_authenticate
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from company_authenticate
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.alumniassociation.authentication.entity.CompanyAuthenticate" >
+    insert into company_authenticate (id, user_id, company_name, 
+      industry, logo, auth_status, 
+      create_time, update_time, brief_introduction, 
+      other_info)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, 
+      #{industry,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, #{authStatus,jdbcType=BIT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{briefIntroduction,jdbcType=LONGVARCHAR}, 
+      #{otherInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alumniassociation.authentication.entity.CompanyAuthenticate" >
+    insert into company_authenticate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="industry != null" >
+        industry,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="authStatus != null" >
+        auth_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="briefIntroduction != null" >
+        brief_introduction,
+      </if>
+      <if test="otherInfo != null" >
+        other_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="authStatus != null" >
+        #{authStatus,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="briefIntroduction != null" >
+        #{briefIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="otherInfo != null" >
+        #{otherInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alumniassociation.authentication.entity.CompanyAuthenticate" >
+    update company_authenticate
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        industry = #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="authStatus != null" >
+        auth_status = #{authStatus,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="briefIntroduction != null" >
+        brief_introduction = #{briefIntroduction,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="otherInfo != null" >
+        other_info = #{otherInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.alumniassociation.authentication.entity.CompanyAuthenticate" >
+    update company_authenticate
+    set user_id = #{userId,jdbcType=INTEGER},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      auth_status = #{authStatus,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      brief_introduction = #{briefIntroduction,jdbcType=LONGVARCHAR},
+      other_info = #{otherInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alumniassociation.authentication.entity.CompanyAuthenticate" >
+    update company_authenticate
+    set user_id = #{userId,jdbcType=INTEGER},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      industry = #{industry,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      auth_status = #{authStatus,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

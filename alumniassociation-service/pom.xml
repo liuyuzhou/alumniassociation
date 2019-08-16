@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.alumniassociation</groupId>
+		<artifactId>alumniassociation-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>com.alumniassociation</groupId>
+	<artifactId>alumniassociation-service</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>alumniassociation-service</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.alumniassociation</groupId>
+			<artifactId>alumniassociation-sys</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 微信公众号 -->
+		<dependency>
+			<groupId>com.github.binarywang</groupId>
+			<artifactId>weixin-java-mp</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+		<!-- 过滤表情符号 -->
+		<dependency>
+		    <groupId>com.vdurmont</groupId>
+		    <artifactId>emoji-java</artifactId>
+		    <version>4.0.0</version>
+	    </dependency>
+		<!-- mybatis的依赖 -->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+		</dependency>
+		<!-- 添加MySQL数据库驱动依赖 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- 数据库连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>4.1.6</version>
+		</dependency>
+	</dependencies>
+	
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<url>http://192.168.0.107:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+	<build>
+		<finalName>alumniassociation-service</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.18.1</version>
+				<configuration>
+					<skipTests>true</skipTests><!--默认关掉单元测试 -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alumniassociation.activate.dao.ActivateInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.alumniassociation.activate.entity.ActivateInfo" >
+    <id column="activate_id" property="activateId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="act_time" property="actTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="act_creator" property="actCreator" jdbcType="VARCHAR" />
+    <result column="meeting_place" property="meetingPlace" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="participate_num" property="participateNum" jdbcType="INTEGER" />
+    <result column="cost" property="cost" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    activate_id, title, address, act_time, end_time, act_creator, content, participate_num, cost, status
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activate_info
+    where activate_id = #{activateId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from activate_info
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activate_info
+    where activate_id = #{activateId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.alumniassociation.activate.entity.ActivateInfo" >
+    insert into activate_info (activate_id, title, address, act_time, 
+      end_time, act_creator, content, 
+      participate_num, cost, create_time, 
+      update_time)
+    values (#{activateId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{actTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{actCreator,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{participateNum,jdbcType=INTEGER}, #{cost,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alumniassociation.activate.entity.ActivateInfo" >
+    insert into activate_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activateId != null" >
+        activate_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="actTime != null" >
+        act_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="actCreator != null" >
+        act_creator,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="participateNum != null" >
+        participate_num,
+      </if>
+      <if test="cost != null" >
+        cost,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activateId != null" >
+        #{activateId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="actTime != null" >
+        #{actTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actCreator != null" >
+        #{actCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="participateNum != null" >
+        #{participateNum,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        #{cost,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alumniassociation.activate.entity.ActivateInfo" >
+    update activate_info
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="actTime != null" >
+        act_time = #{actTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="actCreator != null" >
+        act_creator = #{actCreator,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="participateNum != null" >
+        participate_num = #{participateNum,jdbcType=INTEGER},
+      </if>
+      <if test="cost != null" >
+        cost = #{cost,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where activate_id = #{activateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alumniassociation.activate.entity.ActivateInfo" >
+    update activate_info
+    set title = #{title,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      act_time = #{actTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      act_creator = #{actCreator,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      participate_num = #{participateNum,jdbcType=INTEGER},
+      cost = #{cost,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where activate_id = #{activateId,jdbcType=INTEGER}
+  </update>
+</mapper>

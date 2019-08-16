@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true" />
+        
+        <!-- 当返回数据类型为map，设置callSettersOnNulls会把值为null的key也返回 -->
+        <setting name="callSettersOnNulls" value="true"/> 
+    </settings>
+    <plugins>
+          <plugin interceptor="com.github.pagehelper.PageHelper">
+                    <!--设置数据可类型Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库-->
+                    <property name="dialect" value="mysql"/>
+          </plugin>
+    </plugins>
+
+</configuration>

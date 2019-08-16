@@ -1,0 +1,63 @@
+@CHARSET "UTF-8";
+
+.icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
+
+/*给出一个最大宽度 适配移动端*/
+#container{
+    max-width: 1920px;
+    height: 400px;
+}
+
+@media screen and (max-width:780px) {
+    #main{
+        width: 100%;
+        height: 300px;
+    }
+}
+
+#wrap{
+    display: flex;
+    justify-content: flex-start;
+}
+.wrap{
+	display: inline-block;
+	width: 11.11%;
+	height: 100%;
+	background-color: ;
+/* 	border: 1px solid black; */
+}
+.smaill{
+	line-height: 125px;
+	text-align: center;
+	vertical-align: middle;
+
+}
+#wrap-sales{
+	display: flex;
+    justify-content: flex-start;
+}
+.wrap-sales{
+	display: inline-block;
+	width: 25%;
+	height: 100%;
+	background-color: ;
+/* 	border: 1px solid black; */
+}
+
+#warp-quick-container{
+	display: flex;
+    justify-content: flex-start;
+}
+.warp-quick{
+	display: inline-block;
+	width: 180px;
+	height: 100%;
+	background-color: ;
+/* 	border: 1px solid black; */
+}

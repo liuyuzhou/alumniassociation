@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="retrieval_storage" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3a246411-2a05-48d9-b98b-33ac0b0d06fc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="id" class="java.lang.String"/>
+	<parameter name="packageId" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select a.*,(select name from wms_storage_space where id = a.storage_id) as storage
+from (
+    (select t.storage_id,t.package_id from wms_record_in_details t)
+    union
+    (select t.storage_id,t.package_id from wms_retrieval_adjuvant t where retrieval_id = $P{id})
+) a
+where a.package_id = $P{packageId}]]>
+	</queryString>
+	<field name="storage_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[存储位置]]></fieldDescription>
+	</field>
+	<field name="package_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[包裹id]]></fieldDescription>
+	</field>
+	<field name="storage" class="java.lang.String"/>
+	<variable name="sumCount" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="461" y="0" width="110" height="23" uuid="4afdb4e8-a3cf-4390-9189-54c220b6d26c"/>
+				<box>
+					<pen lineWidth="0.75"/>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{storage}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="282" height="23" uuid="d33f2c50-dff8-4b1b-a97f-d26481076e82"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$P{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="storage_id">
+					<subreportParameterExpression><![CDATA[$F{storage_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="packageId">
+					<subreportParameterExpression><![CDATA[$P{packageId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="sumCount" toVariable="sumCount" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "/retrieval_info.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

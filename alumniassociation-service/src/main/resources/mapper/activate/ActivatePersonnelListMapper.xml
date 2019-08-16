@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.alumniassociation.activate.dao.ActivatePersonnelListMapper" >
+  <resultMap id="BaseResultMap" type="com.alumniassociation.activate.entity.ActivatePersonnelList" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="activate_id" property="activateId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="is_drive" property="isDrive" jdbcType="BIT" />
+    <result column="is_family" property="isFamily" jdbcType="BIT" />
+    <result column="is_manned" property="isManned" jdbcType="BIT" />
+    <result column="is_participate" property="isParticipate" jdbcType="VARCHAR" />
+    <result column="boarding_location" property="boardingLocation" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, activate_id, user_id, (select real_name from user_info m where m.id = user_id), is_drive, is_family, is_manned, is_participate, boarding_location,
+    create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activate_personnel_list t
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from activate_personnel_list
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activate_personnel_list
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.alumniassociation.activate.entity.ActivatePersonnelList" >
+    insert into activate_personnel_list (id, activate_id, user_id,  boarding_location,
+      is_drive, is_family, 
+      is_manned, is_participate, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{activateId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{boardingLocation,jdbcType=VARCHAR}, 
+       #{isDrive,jdbcType=BIT}, #{isFamily,jdbcType=BIT}, 
+      #{isManned,jdbcType=BIT}, #{isParticipate,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.alumniassociation.activate.entity.ActivatePersonnelList" >
+    insert into activate_personnel_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="activateId != null" >
+        activate_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+       <if test="boardingLocation != null" >
+        boarding_location,
+      </if>
+      <if test="isDrive != null" >
+        is_drive,
+      </if>
+      <if test="isFamily != null" >
+        is_family,
+      </if>
+      <if test="isManned != null" >
+        is_manned,
+      </if>
+      <if test="isParticipate != null" >
+        is_participate,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="activateId != null" >
+        #{activateId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+       <if test="boardingLocation != null" >
+        #{boardingLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="isDrive != null" >
+        #{isDrive,jdbcType=BIT},
+      </if>
+      <if test="isFamily != null" >
+        #{isFamily,jdbcType=BIT},
+      </if>
+      <if test="isManned != null" >
+        #{isManned,jdbcType=BIT},
+      </if>
+      <if test="isParticipate != null" >
+        #{isParticipate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.alumniassociation.activate.entity.ActivatePersonnelList" >
+    update activate_personnel_list
+    <set >
+      <if test="activateId != null" >
+        activate_id = #{activateId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="boardingLocation != null" >
+        boarding_location = #{boardingLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="isDrive != null" >
+        is_drive = #{isDrive,jdbcType=BIT},
+      </if>
+      <if test="isFamily != null" >
+        is_family = #{isFamily,jdbcType=BIT},
+      </if>
+      <if test="isManned != null" >
+        is_manned = #{isManned,jdbcType=BIT},
+      </if>
+      <if test="isParticipate != null" >
+        is_participate = #{isParticipate,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.alumniassociation.activate.entity.ActivatePersonnelList" >
+    update activate_personnel_list
+    set activate_id = #{activateId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      boarding_location = #{boardingLocation,jdbcType=VARCHAR},
+      is_drive = #{isDrive,jdbcType=BIT},
+      is_family = #{isFamily,jdbcType=BIT},
+      is_manned = #{isManned,jdbcType=BIT},
+      is_participate = #{isParticipate,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="cacelJoinedActivate" parameterType="com.alumniassociation.activate.entity.ActivatePersonnelList" >
+    update activate_personnel_list
+    set 
+      is_participate = #{isParticipate,jdbcType=BIT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+     and activate_id = #{activateId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="findByActivateId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activate_personnel_list
+    where id = #{activate_id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getJoinedPersonnelListByActivateId" resultType="java.util.HashMap" parameterType="java.lang.Integer" >
+    select 
+       a.id, 
+       a.user_id userId,
+       b.real_name as realName,
+       b.curr_location as currLocation,
+       b.graduation_time as graduationTime,
+       b.major as major,
+       b.wechat_image as headImg
+    from activate_personnel_list a, user_info b
+    where a.user_id = b.id
+     and a.is_participate = '1'
+     and a.id = #{activate_id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="findByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activate_personnel_list
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+</mapper>
