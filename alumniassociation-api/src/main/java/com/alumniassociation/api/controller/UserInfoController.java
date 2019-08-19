@@ -134,6 +134,7 @@ public class UserInfoController {
 		userInfo.setGraduationTime(graduationTime);
 		userInfo.setCollege(college);
 		userInfo.setMajor(major);
+		userInfo.setIndustrySkill(industrySkill);
 		userInfo.setCurrLocation(currLocation);
 		userInfo.setHobby(hobby);
 		userInfo.setPersonalProfile(personalProfile);
