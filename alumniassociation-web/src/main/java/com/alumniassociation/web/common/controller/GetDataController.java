@@ -3,7 +3,6 @@ package com.alumniassociation.web.common.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Method;
-import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,8 +26,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.alumniassociation.commpara.entity.Commpara;
-import com.alumniassociation.commpara.service.CommparaService;
 import com.alumniassociation.common.FileUploadBaseController;
 import com.alumniassociation.common.exception.MyException;
 import com.alumniassociation.common.log.SysLog;
@@ -39,16 +35,12 @@ import com.alumniassociation.common.utils.EnumMessage;
 import com.alumniassociation.common.utils.FileUtil;
 import com.alumniassociation.common.utils.R;
 import com.alumniassociation.common.utils.StringUtil;
-import com.alumniassociation.report.jasperreports.JasperHelper;
+import com.alumniassociation.commpara.entity.Commpara;
+import com.alumniassociation.commpara.service.CommparaService;
 import com.alumniassociation.web.common.entity.File;
-import com.alumniassociation.web.common.entity.TableVo;
 import com.alumniassociation.web.common.service.FileService;
 import com.alumniassociation.web.common.service.GetDataService;
 import com.alumniassociation.web.common.service.SysOssService;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 /**
  * Created by lewp 2018/10/14
@@ -622,176 +614,4 @@ public class GetDataController extends FileUploadBaseController {
 
 	}
 	
-	
-	/**
-	 * 返回iReport报表视图
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/reportPrint", method = RequestMethod.GET)
-	public void report() throws JRException {
-		TableVo report = new TableVo();
-
-        List<TableVo> reports = new ArrayList<TableVo>();
-        //装载数据  
-        report.setId("1");//测试为空时，
-        report.setName("测1");
-        report.setNumber(6);
-        report.setLable("第一类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        report = new TableVo(); 
-        report.setId("2");
-        report.setName("测2");
-        report.setNumber(2);
-        report.setLable("第一类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        report = new TableVo(); 
-        report.setId("3");
-        report.setName("测3");
-        report.setNumber(3);
-        report.setLable("第一类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        report = new TableVo(); 
-        report.setId("4");
-        report.setName("测1");
-        report.setNumber(1);
-        report.setLable("第二类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        report = new TableVo();           
-        report.setId("5");
-        report.setName("测2");
-        report.setNumber(4);
-        report.setLable("第二类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        report = new TableVo();           
-        report.setId("6");
-        report.setName("测3");
-        report.setNumber(15);
-        report.setLable("第二类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        //JRBeanCollectionDataSource通过构造注入collection类型的参数，这里我们用的是list结构
-        JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
-
-       //构建参数map 
-        Map<String, Object> map=new HashMap<String, Object>();
-        map.put("orderId", "66355445545544"); 
-        //子数据源测试
-       // map.put("chart1", reports);
-        //指定模板文件
-      String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
-      java.io.File reportFile = new java.io.File(path + "jasper/test_report1.jasper");
-      //指定导出文件名称
-      String exportFilePath = "打印测试";
-      //调用工具类
-      try {
-		JasperHelper.showPdf(exportFilePath, reportFile.getPath(), request, response, map,jrDataSource);
-	   } catch (JRException | IOException e) {
-		e.printStackTrace();
-	   }
-	}
-
-	/**
-	 * 返回iReport报表视图
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
-	public void exportExcel() throws JRException {
-		TableVo report = new TableVo();
-        List<TableVo> reports = new ArrayList<TableVo>();
-        //装载数据
-        report.setId("1");//测试为空时，
-        report.setName("测1");
-        report.setNumber(6);
-        report.setLable("第一类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        report = new TableVo();
-        report.setId("2");
-        report.setName("测2");
-        report.setNumber(2);
-        report.setLable("第一类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        report = new TableVo();
-        report.setId("3");
-        report.setName("测3");
-        report.setNumber(3);
-        report.setLable("第一类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        report = new TableVo();
-        report.setId("4");
-        report.setName("测1");
-        report.setNumber(1);
-        report.setLable("第二类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        report = new TableVo();
-        report.setId("5");
-        report.setName("测2");
-        report.setNumber(4);
-        report.setLable("第二类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        report = new TableVo();
-        report.setId("6");
-        report.setName("测3");
-        report.setNumber(15);
-        report.setLable("第二类");
-        report.setShowFlag(true);
-        reports.add(report);
-
-        //JRBeanCollectionDataSource通过构造注入collection类型的参数，这里我们用的是list结构
-        JRDataSource jrDataSource = new JRBeanCollectionDataSource(reports);
-       //构建参数map
-        Map<String, Object> map=new HashMap<String, Object>();
-        map.put("orderId", "66355445545544");
-        //子数据源测试
-       // map.put("chart1", reports);
-        //指定模板文件
-      String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
-      java.io.File reportFile = new java.io.File(path + "jasper/test_report1.jasper");
-      //指定导出文件名称
-      String exportFilePath = "table导出测试";
-      //调用工具类
-      JasperHelper.export("excel", exportFilePath, reportFile, request, response, map, jrDataSource);
-	}
-
-	@RequestMapping(value = "/exportExcel1", method = RequestMethod.GET)
-	public void exportExcel1() throws JRException {
-
-		//构建参数map
-		Map<String, Object> map=new HashMap<String, Object>();
-		map.put("id", "400000007667180");
-		//指定模板文件
-		String path = ClassUtils.getDefaultClassLoader().getResource("").getPath();
-		java.io.File reportFile = new java.io.File(path + "jasper/saler.jasper");
-		//指定导出文件名称
-		String exportFilePath = "table导出测试";
-		//调用工具类
-		try {
-			Connection connection = dataSource.getConnection();
-			JasperHelper.showPdf(exportFilePath, reportFile.getPath(), request, response, map,connection);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }
