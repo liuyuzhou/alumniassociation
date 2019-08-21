@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
+import com.alumniassociation.common.utils.Query;
 import com.alumniassociation.user.dao.UserInfoMapper;
 import com.alumniassociation.user.entity.UserInfo;
 import com.alumniassociation.user.service.UserInfoService;
@@ -78,5 +79,15 @@ public class UserInfoServiceImpl implements UserInfoService {
 		userInfoMapper.updateByPrimaryKey(userInfo);
 		//主键删除旧的用户信息
 		userInfoMapper.deleteByPrimaryKey(oUserId);
+	}
+
+	@Override
+	public List<UserInfo> getList(Query query) {
+		return userInfoMapper.getList(query);
+	}
+
+	@Override
+	public int getCount(Query query) {
+		return userInfoMapper.getCount(query);
 	}
 }

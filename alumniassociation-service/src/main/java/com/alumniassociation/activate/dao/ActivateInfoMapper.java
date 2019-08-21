@@ -18,4 +18,8 @@ public interface ActivateInfoMapper{
     int updateByPrimaryKey(ActivateInfo record);
 
 	List<ActivateInfo> findAll();
+	
+	void addParticipateNumByKey(Integer id);
+	
+	void removeParticipateNumByKey(Integer id);
 }

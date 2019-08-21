@@ -3,11 +3,17 @@ package com.alumniassociation.user.service;
 
 import java.util.List;
 
+import com.alumniassociation.common.utils.Query;
 import com.alumniassociation.user.entity.UserInfo;
 
 
 public interface UserInfoService {
 
+	
+	public List<UserInfo> getList(Query query);
+	
+	public int getCount(Query query);
+	
 	public void insert(UserInfo userInfo);
 	
 	public UserInfo getUserInfoById(Integer id);

@@ -2,6 +2,7 @@ package com.alumniassociation.user.dao;
 
 import java.util.List;
 
+import com.alumniassociation.common.utils.Query;
 import com.alumniassociation.user.entity.UserInfo;
 
 public interface UserInfoMapper {
@@ -19,7 +20,7 @@ public interface UserInfoMapper {
     int insertSelective(UserInfo record);
 
     UserInfo selectByPrimaryKey(Integer id);
-
+    
     int updateByPrimaryKeySelective(UserInfo record);
 
     int updateByPrimaryKeyWithBLOBs(UserInfo record);
@@ -27,6 +28,15 @@ public interface UserInfoMapper {
     int updateByPrimaryKey(UserInfo record);
 
 	List<UserInfo> findAll();
+	
+	List<UserInfo> getList(Query query);
+	
+	int getCount(Query query);
 
 	List<UserInfo> findByParam(UserInfo record);
+	
+    void delete(Integer id);
+	
+	void deleteBatch(Integer[] ids);
+
 }

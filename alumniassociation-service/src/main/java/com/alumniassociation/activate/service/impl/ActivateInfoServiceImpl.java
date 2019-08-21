@@ -41,4 +41,14 @@ public class ActivateInfoServiceImpl implements ActivateInfoService {
 		return activateInfoMapper.findAll();
 	}
 
+	@Override
+	public void addParticipateNum(Integer id) {
+	    activateInfoMapper.addParticipateNumByKey(id);
+	}
+
+	@Override
+	public void removeParticipateNum(Integer id) {
+		activateInfoMapper.removeParticipateNumByKey(id);
+	}
+
 }

@@ -33,6 +33,8 @@ public class ActivateInfo implements Serializable {
 	
 	private Integer participateNum = Integer.valueOf(0);
 	
+	private Integer curParticipateNum = Integer.valueOf(0);
+	
 	private Double cost = Double.valueOf(0);
 	
 	private Date createTime;
@@ -152,6 +154,14 @@ public class ActivateInfo implements Serializable {
 
 	public void setMeetingPlace(String meetingPlace) {
 		this.meetingPlace = meetingPlace;
+	}
+
+	public Integer getCurParticipateNum() {
+		return curParticipateNum;
+	}
+
+	public void setCurParticipateNum(Integer curParticipateNum) {
+		this.curParticipateNum = curParticipateNum;
 	}
 	
 

@@ -11,12 +11,13 @@
     <result column="meeting_place" property="meetingPlace" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
     <result column="participate_num" property="participateNum" jdbcType="INTEGER" />
+    <result column="cur_participate_num" property="curParticipateNum" jdbcType="INTEGER" />
     <result column="cost" property="cost" jdbcType="DOUBLE" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    activate_id, title, address, act_time, end_time, act_creator, content, participate_num, cost, status
+    activate_id, title, address, act_time, end_time, act_creator, content, participate_num,cur_participate_num, cost, status
     create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -173,4 +174,16 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where activate_id = #{activateId,jdbcType=INTEGER}
   </update>
+  
+  <update id="addParticipateNumByKey" parameterType="java.lang.Integer" >
+    update activate_info set cur_participate_num = cur_participate_num + 1
+    where activate_id = #{activateId,jdbcType=INTEGER}
+  </update>
+  
+   <update id="removeParticipateNumByKey" parameterType="java.lang.Integer" >
+    update activate_info set cur_participate_num = cur_participate_num - 1
+    where activate_id = #{activateId,jdbcType=INTEGER}
+  </update>
+  
+  
 </mapper>

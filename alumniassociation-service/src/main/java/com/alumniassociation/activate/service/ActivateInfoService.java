@@ -10,6 +10,10 @@ public interface ActivateInfoService {
 	public ActivateInfo getActivateInfoById(Integer id);
 
 	public void updateActivate(ActivateInfo activateInfo);
+	
+	public void addParticipateNum(Integer id);
+	
+	public void removeParticipateNum(Integer id);
 
 	public void deleteActivateInfo(Integer id);
 

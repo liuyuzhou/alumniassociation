@@ -13,6 +13,8 @@ public interface ActivatePersonnelListMapper {
     int insertSelective(ActivatePersonnelList record);
 
     ActivatePersonnelList selectByPrimaryKey(Integer id);
+    
+    List<ActivatePersonnelList> selectByParam(ActivatePersonnelList record);
 
     int updateByPrimaryKeySelective(ActivatePersonnelList record);
     
@@ -22,7 +24,7 @@ public interface ActivatePersonnelListMapper {
 
 	List<ActivatePersonnelList> findByActivateId(Integer activateId);
 	
-	List<ActivatePersonnelList> findByUserId(Integer activateId);
+	List<ActivatePersonnelList> findByUserId(Integer userId);
 	
 	List<Map<String, Object>> getJoinedPersonnelListByActivateId(Integer activateId);
 }

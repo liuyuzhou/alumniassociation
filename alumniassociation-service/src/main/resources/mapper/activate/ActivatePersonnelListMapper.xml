@@ -25,6 +25,22 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+  <select id="selectByParam" resultMap="BaseResultMap" parameterType="com.alumniassociation.activate.entity.ActivatePersonnelList" >
+    select 
+    <include refid="Base_Column_List" />
+    from activate_personnel_list t
+    where 1= 1
+      <if test="userId != null" >
+        and user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="isParticipate != null" >
+        and is_participate = #{isParticipate,jdbcType=INTEGER}
+      </if>
+      <if test="id != null" >
+        and id = #{id,jdbcType=INTEGER}
+      </if>
+  </select>
+  
   <select id="findAll" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -42,8 +58,8 @@
       update_time)
     values (#{id,jdbcType=INTEGER}, #{activateId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{boardingLocation,jdbcType=VARCHAR}, 
        #{isDrive,jdbcType=BIT}, #{isFamily,jdbcType=BIT}, 
-      #{isManned,jdbcType=BIT}, #{isParticipate,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{isManned,jdbcType=BIT}, #{isParticipate,jdbcType=VARCHAR}, now(), 
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.alumniassociation.activate.entity.ActivatePersonnelList" >
     insert into activate_personnel_list
@@ -72,12 +88,7 @@
       <if test="isParticipate != null" >
         is_participate,
       </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
+      create_time,update_time
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -104,12 +115,7 @@
       <if test="isParticipate != null" >
         #{isParticipate,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+      now(), now()
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.alumniassociation.activate.entity.ActivatePersonnelList" >
@@ -136,12 +142,7 @@
       <if test="isParticipate != null" >
         is_participate = #{isParticipate,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+       update_time = now()
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -153,18 +154,18 @@
       is_drive = #{isDrive,jdbcType=BIT},
       is_family = #{isFamily,jdbcType=BIT},
       is_manned = #{isManned,jdbcType=BIT},
-      is_participate = #{isParticipate,jdbcType=BIT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      is_participate = #{isParticipate,jdbcType=VARCHAR},
+      update_time = now()
     where id = #{id,jdbcType=INTEGER}
   </update>
   
   <update id="cacelJoinedActivate" parameterType="com.alumniassociation.activate.entity.ActivatePersonnelList" >
     update activate_personnel_list
     set 
-      is_participate = #{isParticipate,jdbcType=BIT},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where user_id = #{userId,jdbcType=INTEGER}
+      is_participate = #{isParticipate,jdbcType=VARCHAR},
+      update_time = now()
+    where is_participate = '1'
+     and user_id = #{userId,jdbcType=INTEGER}
      and activate_id = #{activateId,jdbcType=INTEGER}
   </update>
   

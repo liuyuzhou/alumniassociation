@@ -35,6 +35,26 @@
   <sql id="Blob_Column_List" >
     personal_profile
   </sql>
+  
+  <!-- 搜索数据区域 -->
+  <sql id="where_clause">
+        <where>
+            1=1
+            <if test="id != null and id != ''"> and t.Id = #{id} </if>
+            <if test="college != null and college != ''"> and t.college like concat('%',#{college},'%') </if>
+            <if test="entranceTime != null and entranceTime != ''"> and t.entrance_time = #{entranceTime} </if>
+            <if test="graduationTime != null and graduationTime != ''"> and t.graduation_time = #{graduationTime} </if>
+            <if test="hobby != null and hobby != ''"> and t.hobby like concat('%',#{hobby},'%')</if>
+            <if test="industrySkill != null and industrySkill != ''"> and t.industrySkill like concat('%',#{industrySkill},'%') </if>
+            <if test="major != null and major != ''"> and t.major = #{major} </if>
+            <if test="openId != null and openId != ''"> and t.open_id = #{openId} </if>
+            <if test="phoneNum != null and phoneNum != ''"> and t.phone_num = #{phoneNum} </if>
+            <if test="realName != null and realName != ''"> and t.real_name = #{realName} </if>
+            <if test="sex != null and sex != ''"> and t.sex = #{sex} </if>
+            <if test="userStatus != null and userStatus != ''"> and t.user_status = #{userStatus} </if>
+        </where>
+  </sql>
+    
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -44,6 +64,31 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+  <select id="findByParam"  parameterType="com.alumniassociation.user.entity.UserInfo" resultMap="ResultMapWithBLOBs">
+    select 
+       <include refid="Base_Column_List" />
+        ,
+       <include refid="Blob_Column_List" />
+    from user_info
+    where real_name = #{realName,jdbcType=VARCHAR} 
+      and major = #{major,jdbcType=VARCHAR} 
+      and graduation_time = #{graduationTime,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getList" resultMap="ResultMapWithBLOBs">
+		select t.*
+		from user_info t
+		<include refid="where_clause" />
+        order by create_time desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+  <select id="getCount" resultType="int">
+		select count(1) from news t  <include refid="where_clause" />
+  </select>
+	
   <select id="queryByOpenId" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
@@ -333,12 +378,16 @@
       wechat_image = #{wechatImage,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="findByParam"  parameterType="com.alumniassociation.user.entity.UserInfo" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from user_info
-    where real_name = #{realName,jdbcType=VARCHAR} and major = #{major,jdbcType=VARCHAR} and graduation_time = #{graduationTime,jdbcType=VARCHAR}
-  </select>
+  
+  <delete id="delete">
+		delete from news where Id = #{value}
+	</delete>
+	
+  <delete id="deleteBatch">
+		delete from user_info where Id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+  
 </mapper>
