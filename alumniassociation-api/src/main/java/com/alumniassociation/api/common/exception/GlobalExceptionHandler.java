@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public DataMsg handleMyException(HttpServletRequest req,Exception e){
     	if (Objects.nonNull(e)) {
-            LOG.error("yizhung-SystemException:" + ExceptionUtil.getStackTrace(e));
+            LOG.error("XYH-SystemException:" + ExceptionUtil.getStackTrace(e));
             //return DataMsg.error(e.getMessage());//该返回为开发期间，方便调试，生产环境中注释掉
         }
     	return DataMsg.error("系统繁忙!稍后重试");//生产环境，所有系统Exception统一返回
@@ -51,7 +51,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MyException.class)
     public DataMsg handleMyException(HttpServletRequest req, MyException e){
     	if (Objects.nonNull(e)) {
-            LOG.info("yizhuang-MyException:" + e.getMessage());
+            LOG.info("XYH-MyException:" + e.getMessage());
         }
         return DataMsg.error(e.getMessage());
     }

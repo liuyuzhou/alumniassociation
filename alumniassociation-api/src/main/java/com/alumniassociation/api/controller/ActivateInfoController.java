@@ -136,7 +136,7 @@ public class ActivateInfoController {
 		 @ApiImplicitParam(name = "endTime", value = "活动结束时间", required = true, dataType = "string", paramType = "body"),
 		 @ApiImplicitParam(name = "act_creator", value = "发起人", required = true, dataType = "string", paramType = "body"),
 		 @ApiImplicitParam(name = "content", value = "活动内容", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "participateNum", value = "参加人数", required = true, dataType = "string", paramType = "body"),
+		 @ApiImplicitParam(name = "participateNum", value = "允许报名总人数", required = true, dataType = "string", paramType = "body"),
 		 @ApiImplicitParam(name = "cost", value = "报名费用", required = true, dataType = "string", paramType = "body"),
 	})
 	@PutMapping(value = "/updateActivate")
@@ -175,13 +175,9 @@ public class ActivateInfoController {
 			@LoginUser Integer userId) {
 		activatePersonnelList.setUserId(userId);
 		activatePersonnelList.setIsParticipate("1");
-		Date dateNow = antInstBaseDao.getSysDate();
-		activatePersonnelList.setCreateTime(dateNow);
-		activatePersonnelList.setUpdateTime(dateNow);
 		activatePersonnelListService.addActivatePersonnelList(activatePersonnelList);
 		return DataMsg.ok();
 	}
-	@Autowired
 	private AntInstBaseDao antInstBaseDao;
 
 	@ApiOperation(value = "取消报名", notes = "取消报名")
@@ -195,7 +191,6 @@ public class ActivateInfoController {
 		activatePersonnelList.setActivateId(activateId);
 		activatePersonnelList.setUserId(userId);
 		activatePersonnelList.setIsParticipate("0");
-		activatePersonnelList.setUpdateTime(antInstBaseDao.getSysDate());
 		activatePersonnelListService.cacelJoinedActivate(activatePersonnelList);
 		return DataMsg.ok();
 	}
