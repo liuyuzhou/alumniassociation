@@ -1,6 +1,7 @@
 package com.alumniassociation.activate.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.alumniassociation.activate.entity.ActivateInfo;
 
@@ -18,6 +19,8 @@ public interface ActivateInfoMapper{
     int updateByPrimaryKey(ActivateInfo record);
 
 	List<ActivateInfo> findAll();
+	
+	ActivateInfo selectByUserId(Map<String, Object> paraMap);
 	
 	void addParticipateNumByKey(Integer id);
 	

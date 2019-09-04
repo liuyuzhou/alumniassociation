@@ -31,7 +31,7 @@ public class ActivatePersonnelListServiceImpl implements ActivatePersonnelListSe
 	@Override
 	public int addActivatePersonnelList(ActivatePersonnelList activatePersonnelList) {
 		int resultCode = 0;
-		ActivateInfo activateInfo = activateInfoService.getActivateInfoById(activatePersonnelList.getActivateId());
+		ActivateInfo activateInfo = activateInfoService.getActivateInfoById(activatePersonnelList.getActivateId(), activatePersonnelList.getUserId());
 		if (activateInfo.getParticipateNum() != null
 				&& activateInfo.getCurParticipateNum() >= activateInfo.getParticipateNum()) {// 满员
 			throw new MyException("该活动参与人员名额已满。请及时关注我们公众号最新活动讯息，下次更多精彩活动期待您的参与！");

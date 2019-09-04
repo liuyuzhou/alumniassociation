@@ -7,6 +7,7 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="act_time" property="actTime" jdbcType="TIMESTAMP" />
     <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="already_attend" property="alreadyAttend" jdbcType="VARCHAR" />
     <result column="act_creator" property="actCreator" jdbcType="VARCHAR" />
     <result column="meeting_place" property="meetingPlace" jdbcType="VARCHAR" />
     <result column="content" property="content" jdbcType="VARCHAR" />
@@ -17,7 +18,7 @@
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    activate_id, title, address, act_time, end_time, act_creator, content, participate_num,cur_participate_num, cost, status
+    activate_id, title, address, act_time, end_time, act_creator, content, participate_num,cur_participate_num, cost, status,
     create_time, update_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
@@ -25,6 +26,15 @@
     <include refid="Base_Column_List" />
     from activate_info
     where activate_id = #{activateId,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.util.HashMap" >
+    select 
+     activate_id, title, address, act_time, end_time, act_creator, content, participate_num,cur_participate_num, cost, status,
+    (case when exists (select 1 from activate_personnel_list a where t.activate_id = a.activate_id and a.user_id = #{userId,jdbcType=INTEGER}) THEN 1 ELSE 0 END) as already_attend,
+    create_time, update_time
+    from activate_info t
+    where t.activate_id = #{activateId,jdbcType=INTEGER}
   </select>
   
   <select id="findAll" resultMap="BaseResultMap">

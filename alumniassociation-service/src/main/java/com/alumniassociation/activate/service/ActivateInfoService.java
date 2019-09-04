@@ -7,7 +7,7 @@ import com.alumniassociation.activate.entity.ActivateInfo;
 public interface ActivateInfoService {
 	public int addActivateInfo(ActivateInfo activateInfo);
 
-	public ActivateInfo getActivateInfoById(Integer id);
+	public ActivateInfo getActivateInfoById(Integer id, Integer userId);
 
 	public void updateActivate(ActivateInfo activateInfo);
 	

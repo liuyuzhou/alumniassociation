@@ -1,6 +1,8 @@
 package com.alumniassociation.activate.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -22,8 +24,15 @@ public class ActivateInfoServiceImpl implements ActivateInfoService {
 	}
 
 	@Override
-	public ActivateInfo getActivateInfoById(Integer id) {
-		return activateInfoMapper.selectByPrimaryKey(id);
+	public ActivateInfo getActivateInfoById(Integer id, Integer userId) {
+		
+		if(userId == null || userId == 0){
+			return activateInfoMapper.selectByPrimaryKey(id);
+		}
+		Map<String, Object> paraMap = new HashMap<>();
+		paraMap.put("userId", userId);
+		paraMap.put("activateId", id);
+		return activateInfoMapper.selectByUserId(paraMap);
 	}
 
 	@Override

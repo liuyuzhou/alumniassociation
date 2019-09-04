@@ -41,6 +41,8 @@ public class ActivateInfo implements Serializable {
 	
 	private Date updateTime;
 	
+	private String alreadyAttend;
+	
 	private String status;
 
 	public Integer getActivateId() {
@@ -162,6 +164,14 @@ public class ActivateInfo implements Serializable {
 
 	public void setCurParticipateNum(Integer curParticipateNum) {
 		this.curParticipateNum = curParticipateNum;
+	}
+
+	public String getAlreadyAttend() {
+		return alreadyAttend;
+	}
+
+	public void setAlreadyAttend(String alreadyAttend) {
+		this.alreadyAttend = alreadyAttend;
 	}
 	
 
