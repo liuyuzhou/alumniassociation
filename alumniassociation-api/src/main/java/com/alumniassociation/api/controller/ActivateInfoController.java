@@ -87,7 +87,7 @@ public class ActivateInfoController {
 		for (ActivatePersonnelList activatePersonnelList : activatePersonnelLists) {
 			Integer activateId = activatePersonnelList.getActivateId();
 			String userName = activatePersonnelList.getRealName();
-			ActivateInfo activateInfo = activateInfoService.getActivateInfoById(activateId);
+			ActivateInfo activateInfo = activateInfoService.getActivateInfoById(activateId, userId);
 			activate.setUserName(userName);
 			activateInfos.add(activateInfo);
 		}
@@ -151,8 +151,8 @@ public class ActivateInfoController {
 
 	@ApiOperation(value = "查找指定活动记录", notes = "查找指定活动记录")
 	@GetMapping(value = "/find/{activateId}")
-	public DataMsg getUserInfo(@PathVariable("activateId") Integer activateId) {
-		return DataMsg.ok(activateInfoService.getActivateInfoById(activateId));
+	public DataMsg getUserInfo(@PathVariable("activateId") Integer activateId, @LoginUser Integer userId) {
+		return DataMsg.ok(activateInfoService.getActivateInfoById(activateId, userId));
 	}
 
 	@ApiOperation(value = "删除指定活动", notes = "删除指定活动")
@@ -165,10 +165,10 @@ public class ActivateInfoController {
 	@ApiOperation(value = "活动报名", notes = "活动报名")
 	@ApiImplicitParams({ 
 		 @ApiImplicitParam(name = "activateId", value = "活动ID", required = true, dataType = "int", paramType = "body"),
-		 @ApiImplicitParam(name = "isDrive", value = "是否开车", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "isFamily", value = "是否携带家属", required = true, dataType = "string", paramType = "body"),
+		 @ApiImplicitParam(name = "isDrive", value = "是否开车", required = true, dataType = "boolean", paramType = "body"),
+		 @ApiImplicitParam(name = "isFamily", value = "是否携带家属", required = true, dataType = "boolean", paramType = "body"),
 		 @ApiImplicitParam(name = "boardingLocation", value = "上车地点", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "isManned", value = "是否可以载人", required = true, dataType = "string", paramType = "body"),
+		 @ApiImplicitParam(name = "isManned", value = "是否可以载人", required = true, dataType = "boolean", paramType = "body"),
 	})
 	@PostMapping(value = "/activateSignUp")
 	public DataMsg activateSignUp(@RequestBody ActivatePersonnelList activatePersonnelList,
@@ -211,7 +211,7 @@ public class ActivateInfoController {
 	@ApiOperation(value = "活动参与人列表", notes = "活动参与人列表")
 	@GetMapping(value = "/personnelLists/{activateId}")
 	public DataMsg personnelLists(@PathVariable("activateId") Integer activateId) {
-		ActivateInfo activateInfo = activateInfoService.getActivateInfoById(activateId);
+		ActivateInfo activateInfo = activateInfoService.getActivateInfoById(activateId, null);
 		if (activateInfo == null) {
 			// 异常处理
 		}
@@ -230,7 +230,7 @@ public class ActivateInfoController {
 	@ApiOperation(value = "活动回顾", notes = "活动回顾")
 	@GetMapping(value = "/reviewList/{activateId}")
 	public DataMsg reviewList(@PathVariable("activateId") Integer activateId) {
-		ActivateInfo activateInfo = activateInfoService.getActivateInfoById(activateId);
+		ActivateInfo activateInfo = activateInfoService.getActivateInfoById(activateId, null);
 		if (activateInfo == null) {
 			// 异常处理
 		}
