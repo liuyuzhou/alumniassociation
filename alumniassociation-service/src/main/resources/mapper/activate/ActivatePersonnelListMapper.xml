@@ -39,6 +39,9 @@
       <if test="id != null" >
         and id = #{id,jdbcType=INTEGER}
       </if>
+      <if test="activateId != null" >
+        and activate_id = #{activateId,jdbcType=INTEGER},
+      </if>
   </select>
   
   <select id="findAll" resultMap="BaseResultMap">

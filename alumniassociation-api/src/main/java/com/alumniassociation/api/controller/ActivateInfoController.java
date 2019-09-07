@@ -49,13 +49,13 @@ import jodd.util.StringUtil;
 @RestController
 @RequestMapping("/szxyh/activateInfo")
 public class ActivateInfoController {
-	
+
 	@Autowired
 	private ActivateInfoService activateInfoService;
-	
+
 	@Autowired
 	private ActivatePersonnelListService activatePersonnelListService;
-	
+
 	@Autowired
 	private ActivateReviewDetailService activateReviewDetailService;
 
@@ -73,9 +73,8 @@ public class ActivateInfoController {
 	}
 
 	@ApiOperation(value = "取得某个用户参加的所有活动信息", notes = "取得某个用户参加的所有活动信息")
-	@ApiImplicitParams({ 
-		 @ApiImplicitParam(name = "X-Alumniassociation-Token", value = "用户登陆后的令牌", required = true, dataType = "string", paramType = "header"),
-	})
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "X-Alumniassociation-Token", value = "用户登陆后的令牌", required = true, dataType = "string", paramType = "header"), })
 	@GetMapping(value = "/listUserAllActivateInfo")
 	public DataMsg getActivateInfoByUserId(@LoginUser Integer userId) {
 		List<ActivatePersonnelList> activatePersonnelLists = activatePersonnelListService.findByUserId(userId);
@@ -97,26 +96,26 @@ public class ActivateInfoController {
 	}
 
 	@ApiOperation(value = "创建校友活动", notes = "对校友创建的校友活动信息进行数据保存")
-	@ApiImplicitParams({ 
-		 @ApiImplicitParam(name = "title", value = "活动标题", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "activateImage", value = "活动宣传图", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "address", value = "活动地点", required = true, dataType = "string", paramType = "body"),
-		 //@ApiImplicitParam(name = "meetingPlace", value = "出发集合地点", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "actTime", value = "活动时间", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "endTime", value = "活动结束时间", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "actCreator", value = "发起人", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "content", value = "活动内容", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "participateNum", value = "参加人数", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "cost", value = "报名费用", required = true, dataType = "string", paramType = "body"),
-	})
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "title", value = "活动标题", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "activateImage", value = "活动宣传图", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "address", value = "活动地点", required = true, dataType = "string", paramType = "body"),
+			// @ApiImplicitParam(name = "meetingPlace", value = "出发集合地点",
+			// required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "actTime", value = "活动时间", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "endTime", value = "活动结束时间", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "actCreator", value = "发起人", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "content", value = "活动内容", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "participateNum", value = "参加人数", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "cost", value = "报名费用", required = true, dataType = "string", paramType = "body"), })
 	@PostMapping(value = "/addActivate")
 	public DataMsg addActivate(@RequestBody ActivateInfo activateInfo) {
-		if(StringUtil.isEmpty(activateInfo.getTitle()) || StringUtil.isEmpty(activateInfo.getActivateImage())
+		if (StringUtil.isEmpty(activateInfo.getTitle()) || StringUtil.isEmpty(activateInfo.getActivateImage())
 				|| StringUtil.isEmpty(activateInfo.getAddress()) || StringUtil.isEmpty(activateInfo.getActivateImage())
 				|| activateInfo.getActTime() == null || activateInfo.getEndTime() == null
 				|| StringUtil.isEmpty(activateInfo.getActCreator()) || StringUtil.isEmpty(activateInfo.getContent())
 				|| activateInfo.getParticipateNum() == null || activateInfo.getParticipateNum() == 0
-				|| activateInfo.getCost() == null || activateInfo.getCost() == 0){
+				|| activateInfo.getCost() == null || activateInfo.getCost() == 0) {
 			return DataMsg.badArgument();
 		}
 		Date dateNow = antInstBaseDao.getSysDate();
@@ -128,20 +127,19 @@ public class ActivateInfoController {
 	}
 
 	@ApiOperation(value = "校友活动信息修改", notes = "完善活动信息保存")
-	@ApiImplicitParams({ 
-		 @ApiImplicitParam(name = "title", value = "活动标题", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "activateImage", value = "活动宣传图", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "boardingLocation", value = "上车地点", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "actTime", value = "活动时间", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "endTime", value = "活动结束时间", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "act_creator", value = "发起人", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "content", value = "活动内容", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "participateNum", value = "允许报名总人数", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "cost", value = "报名费用", required = true, dataType = "string", paramType = "body"),
-	})
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "title", value = "活动标题", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "activateImage", value = "活动宣传图", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "boardingLocation", value = "上车地点", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "actTime", value = "活动时间", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "endTime", value = "活动结束时间", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "act_creator", value = "发起人", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "content", value = "活动内容", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "participateNum", value = "允许报名总人数", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "cost", value = "报名费用", required = true, dataType = "string", paramType = "body"), })
 	@PutMapping(value = "/updateActivate")
 	public DataMsg updateActivate(@RequestBody ActivateInfo activateInfo) {
-		if(activateInfo.getActivateId() == null || activateInfo.getActivateId() == 0){
+		if (activateInfo.getActivateId() == null || activateInfo.getActivateId() == 0) {
 			return DataMsg.badArgument();
 		}
 		activateInfo.setUpdateTime(antInstBaseDao.getSysDate());
@@ -163,30 +161,28 @@ public class ActivateInfoController {
 	}
 
 	@ApiOperation(value = "活动报名", notes = "活动报名")
-	@ApiImplicitParams({ 
-		 @ApiImplicitParam(name = "activateId", value = "活动ID", required = true, dataType = "int", paramType = "body"),
-		 @ApiImplicitParam(name = "isDrive", value = "是否开车", required = true, dataType = "boolean", paramType = "body"),
-		 @ApiImplicitParam(name = "isFamily", value = "是否携带家属", required = true, dataType = "boolean", paramType = "body"),
-		 @ApiImplicitParam(name = "boardingLocation", value = "上车地点", required = true, dataType = "string", paramType = "body"),
-		 @ApiImplicitParam(name = "isManned", value = "是否可以载人", required = true, dataType = "boolean", paramType = "body"),
-	})
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "isDrive", value = "是否开车", required = true, dataType = "boolean", paramType = "body"),
+			@ApiImplicitParam(name = "isFamily", value = "是否携带家属", required = true, dataType = "boolean", paramType = "body"),
+			@ApiImplicitParam(name = "boardingLocation", value = "上车地点", required = true, dataType = "string", paramType = "body"),
+			@ApiImplicitParam(name = "isManned", value = "是否可以载人", required = true, dataType = "boolean", paramType = "body"), })
 	@PostMapping(value = "/activateSignUp")
 	public DataMsg activateSignUp(@RequestBody ActivatePersonnelList activatePersonnelList,
-			@LoginUser Integer userId) {
+			@RequestParam("activateId") Integer activateId, @LoginUser Integer userId) {
 		activatePersonnelList.setUserId(userId);
+		activatePersonnelList.setActivateId(activateId);
 		activatePersonnelList.setIsParticipate("1");
 		activatePersonnelListService.addActivatePersonnelList(activatePersonnelList);
 		return DataMsg.ok();
 	}
+
 	private AntInstBaseDao antInstBaseDao;
 
 	@ApiOperation(value = "取消报名", notes = "取消报名")
-	@ApiImplicitParams({ 
-		 @ApiImplicitParam(name = "activateId", value = "活动ID", required = true, dataType = "int", paramType = "query"),
-	})
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "activateId", value = "活动ID", required = true, dataType = "int", paramType = "query"), })
 	@PostMapping(value = "/activateCancel")
-	public DataMsg activateCancel(@RequestParam("activateId") Integer activateId,
-			@LoginUser Integer userId) {
+	public DataMsg activateCancel(@RequestParam("activateId") Integer activateId, @LoginUser Integer userId) {
 		ActivatePersonnelList activatePersonnelList = new ActivatePersonnelList();
 		activatePersonnelList.setActivateId(activateId);
 		activatePersonnelList.setUserId(userId);
@@ -196,12 +192,12 @@ public class ActivateInfoController {
 	}
 
 	@ApiOperation(value = "活动评论", notes = "活动评论")
-	@ApiImplicitParams({ 
-		 @ApiImplicitParam(name = "activateId", value = "活动ID", required = true, dataType = "int", paramType = "body"),
-		 @ApiImplicitParam(name = "comment", value = "评论内容", required = true, dataType = "string", paramType = "body"),
-	})
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "activateId", value = "活动ID", required = true, dataType = "int", paramType = "body"),
+			@ApiImplicitParam(name = "comment", value = "评论内容", required = true, dataType = "string", paramType = "body"), })
 	@PostMapping(value = "/addActivateReview")
-	public DataMsg addActivateReview(@RequestBody ActivateReviewDetail activateReviewDetail, @LoginUser Integer userId) {
+	public DataMsg addActivateReview(@RequestBody ActivateReviewDetail activateReviewDetail,
+			@LoginUser Integer userId) {
 		activateReviewDetail.setUserId(userId);
 		activateReviewDetail.setCreateTime(antInstBaseDao.getSysDate());
 		activateReviewDetailService.addActivateReview(activateReviewDetail);
