@@ -110,7 +110,7 @@
     delete from user_info
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.alumniassociation.user.entity.UserInfo" >
+  <insert id="insert" parameterType="com.alumniassociation.user.entity.UserInfo" keyProperty="id" useGeneratedKeys="true">
     insert into user_info (
         id, 
         college, 
