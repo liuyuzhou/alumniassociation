@@ -33,30 +33,31 @@
 			<artifactId>aliyun-sdk-mns</artifactId>
 			<version>1.1.8</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.aliyun.mns</groupId>
 			<artifactId>aliyun-java-sdk-dybaseapi</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.aliyun.alicom</groupId>
 			<artifactId>alicom-mns-receive-sdk</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.aliyun</groupId>
 			<artifactId>aliyun-java-sdk-core</artifactId>
 			<version>3.2.8</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.aliyun</groupId>
 			<artifactId>aliyun-java-sdk-dysmsapi</artifactId>
 			<version>1.1.0</version>
 		</dependency>
+
 		<!--redis -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

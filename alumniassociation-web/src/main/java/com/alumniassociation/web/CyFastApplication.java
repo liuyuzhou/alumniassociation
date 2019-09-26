@@ -11,10 +11,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @MapperScan({"com.alumniassociation.web.common.dao", "com.alumniassociation.*.dao", "com.alumniassociation.*.*.dao"})
 @ComponentScan("com.alumniassociation.*.service")
 @ComponentScan("com.alumniassociation.*.*.service")
-@ComponentScan("com.alumniassociation.*.*.rdao")
 @ComponentScan("com.alumniassociation.web.common")
 @ComponentScan("com.alumniassociation.common")
-@ComponentScan("com.alumniassociation.message")
 @EnableScheduling
 public class CyFastApplication {
 
