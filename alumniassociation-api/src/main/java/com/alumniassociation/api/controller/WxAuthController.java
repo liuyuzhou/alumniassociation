@@ -6,6 +6,9 @@ import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.alumniassociation.api.datamock.LoginMock;
+import com.alumniassociation.common.datamock.Mock;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.validation.annotation.Validated;
@@ -39,6 +42,7 @@ import io.swagger.annotations.ApiResponse;
 @Api(tags = "微信小程序鉴权服务")
 @RequestMapping("/szxyh/wx/auth")
 @Validated
+@Slf4j
 public class WxAuthController {
 	
     @Autowired
@@ -62,6 +66,7 @@ public class WxAuthController {
     @ApiOperation(value = "微信授权登陆", notes = "通过微信小程序确认授权并登陆")
 	@ApiResponse(response=DataMsg.class, code = 200, message = "接口返回对象参数")
     @PostMapping("login_by_weixin")
+    @Mock(mockClass = LoginMock.class)
     public DataMsg loginByWeixin(@RequestBody WxLoginInfo wxLoginInfo, HttpServletRequest request) {
         String code = wxLoginInfo.getCode();
         if (code == null || wxLoginInfo.getUserInfo() == null) {
@@ -75,7 +80,7 @@ public class WxAuthController {
             sessionKey = result.getSessionKey();
             openId = result.getOpenid();
         } catch (Exception e) {
-            e.printStackTrace();
+           log.error("登录信息异常",e);
         }
 
         if (sessionKey == null || openId == null) {
