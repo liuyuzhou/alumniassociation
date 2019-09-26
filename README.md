@@ -18,7 +18,7 @@ mvn install:install-file -DgroupId=com.aliyun.alicom -DartifactId=alicom-mns-rec
 > 使用方法 打开配置文件中的 mock.open=true 既可以
 
 ### 打开登录模拟后，使用postman等接口测试工具进行接口测试
-> 模拟登录后返回数据,拿到token，放入要测试的请求头部，X-Alumniassociation-Token=[这里放token，括号不要]
+> 模拟登录后返回数据,拿到token，放入要测试接口的请求头部，X-Alumniassociation-Token=[这里放token，括号不要]
 ```$xslt
 {
     "code": 1,
