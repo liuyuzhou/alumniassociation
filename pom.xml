@@ -12,6 +12,8 @@
         <module>alumniassociation-api</module>
 <!--        <module>alumniassociation-admin-api</module>-->
         <module>alumniassociation-service</module>
+        <module>alumniassociation-web</module>
+        <module>alumniassociation-report</module>
     </modules>
 
     <parent>

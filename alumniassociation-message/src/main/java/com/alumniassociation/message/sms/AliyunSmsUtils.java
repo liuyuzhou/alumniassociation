@@ -1,5 +1,7 @@
 package com.alumniassociation.message.sms;
 
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,8 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
-import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
-import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.profile.DefaultProfile;
@@ -110,7 +111,7 @@ public class AliyunSmsUtils {
      * @throws ClientException 
      * @throws ServerException 
      */
-    public SendSmsResponse sendSmsMsg(String tel,int msgNo,String[] args) throws ServerException, ClientException {
+    public SendSmsResponse sendSmsMsg(String tel, int msgNo, String[] args) throws ServerException, ClientException {
     	if(!isLoaded){
     		init();
     	}

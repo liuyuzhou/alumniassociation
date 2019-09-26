@@ -11,7 +11,7 @@
 	<artifactId>alumniassociation-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>alumniassociation-api</name>
-	<url>http://maven.apache.org</url>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -102,10 +102,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
